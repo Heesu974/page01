@@ -1,9 +1,10 @@
 
 const loginForm = document.querySelector('#login-form');
 const loginInput = document.querySelector('#login-form input');
+const greeting = document.querySelector('#greeting')
 
-
-
+const HIDDEN = 'hidden';
+const KEY_TYPEDINPUTVALUE = 'Key_typedInputValue'
 
 // function handleLoginBtnClick() {
 //     const typedInputValue = loginInput.value;
@@ -17,12 +18,44 @@ const loginInput = document.querySelector('#login-form input');
 
 // loginButton.addEventListener('click', handleLoginBtnClick);
 
+
+
+
 function handleLoginSubmit(e) {
     e.preventDefault();
+
+
+    loginForm.classList.add(HIDDEN);
     const typedInputValue = loginInput.value;
-    console.log(typedInputValue);
-    // loginForm.classList.add('hidden');
+
+    localStorage.setItem(KEY_TYPEDINPUTVALUE, typedInputValue);
+
+
+    greeting.classList.remove(HIDDEN);
+    greeting.innerText = `hello ${typedInputValue}`
+
+
 
 }
 
-loginForm.addEventListener('submit', handleLoginSubmit);
+function paintGreeting() {
+
+}
+
+
+
+const checkStored_Key = localStorage.getItem(KEY_TYPEDINPUTVALUE);
+
+if (checkStored_Key === null) {
+    loginForm.classList.remove(HIDDEN);
+    loginForm.addEventListener('submit', handleLoginSubmit);
+
+} else {
+    greeting.classList.remove(HIDDEN);
+    greeting.innerText = `hello ${checkStored_Key}`
+}
+
+
+
+
+
